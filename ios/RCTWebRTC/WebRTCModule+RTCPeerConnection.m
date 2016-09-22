@@ -120,7 +120,7 @@ RCT_EXPORT_METHOD(peerConnectionCreateOffer:(nonnull NSNumber *)objectID callbac
 - (RTCMediaConstraints *)defaultOfferConstraints {
   NSDictionary *mandatoryConstraints = @{
     @"OfferToReceiveAudio": @"true",
-    @"OfferToReceiveVideo": @"true",
+    @"OfferToReceiveVideo": @"false",
   };
 
   RTCMediaConstraints* constraints =

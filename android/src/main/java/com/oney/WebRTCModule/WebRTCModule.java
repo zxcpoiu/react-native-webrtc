@@ -68,7 +68,7 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
         mVideoCapturers = new HashMap<String, VideoCapturer>();
 
         pcConstraints.mandatory.add(new MediaConstraints.KeyValuePair("OfferToReceiveAudio", "true"));
-        pcConstraints.mandatory.add(new MediaConstraints.KeyValuePair("OfferToReceiveVideo", "true"));
+        pcConstraints.mandatory.add(new MediaConstraints.KeyValuePair("OfferToReceiveVideo", "false"));
         pcConstraints.optional.add(new MediaConstraints.KeyValuePair("DtlsSrtpKeyAgreement", "true"));
 
         PeerConnectionFactory.initializeAndroidGlobals(reactContext, true, true, true);
