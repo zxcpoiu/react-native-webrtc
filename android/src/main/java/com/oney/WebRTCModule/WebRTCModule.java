@@ -162,6 +162,7 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void peerConnectionInit(ReadableMap configuration, int id){
         PeerConnection.RTCConfiguration config = parseRTCConfiguration(configuration);
+        config.rtcpMuxPolicy = PeerConnection.RtcpMuxPolicy.NEGOTIATE;
         PeerConnectionObserver observer = new PeerConnectionObserver(this, id);
         PeerConnection peerConnection = mFactory.createPeerConnection(config, pcConstraints, observer); 
         observer.setPeerConnection(peerConnection);

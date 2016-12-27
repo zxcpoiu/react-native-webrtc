@@ -50,6 +50,7 @@
 
 RCT_EXPORT_METHOD(peerConnectionInit:(RTCConfiguration*)configuration objectID:(nonnull NSNumber *)objectID)
 {
+  configuration.rtcpMuxPolicy = RTCRtcpMuxPolicyNegotiate;
   RTCPeerConnection *peerConnection = [self.peerConnectionFactory peerConnectionWithConfiguration:configuration constraints:[self defaultPeerConnectionConstraints] delegate:self];
   peerConnection.dataChannels = [NSMutableDictionary new];
   peerConnection.reactTag = objectID;
