@@ -88,6 +88,8 @@ RCT_EXPORT_METHOD(peerConnectionInit:(RTCConfiguration*)configuration
   RTCMediaConstraints* constraints =
       [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil
                                             optionalConstraints:optionalConstraints];
+  configuration.rtcpMuxPolicy = RTCRtcpMuxPolicyNegotiate;
+  configuration.bundlePolicy = RTCBundlePolicyBalanced;
   RTCPeerConnection *peerConnection
     = [self.peerConnectionFactory
       peerConnectionWithConfiguration:configuration
