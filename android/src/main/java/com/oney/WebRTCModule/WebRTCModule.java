@@ -211,6 +211,7 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
                 }
             }
         }
+        conf.rtcpMuxPolicy = PeerConnection.RtcpMuxPolicy.NEGOTIATE;
 
         // FIXME: peerIdentity of type DOMString (public api)
         // FIXME: certificates of type sequence<RTCCertificate> (public api)
