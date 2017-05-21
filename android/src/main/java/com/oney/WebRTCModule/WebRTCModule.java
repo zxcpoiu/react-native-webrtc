@@ -383,6 +383,15 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
             conf.presumeWritableWhenFullyRelayed = v;
         }
 
+        // --- lazy custom config
+        conf.bundlePolicy = PeerConnection.BundlePolicy.BALANCED;
+        conf.rtcpMuxPolicy = PeerConnection.RtcpMuxPolicy.NEGOTIATE;
+        conf.presumeWritableWhenFullyRelayed = true;
+        conf.tcpCandidatePolicy = PeerConnection.TcpCandidatePolicy.DISABLED;
+        conf.iceTransportsType = PeerConnection.IceTransportsType.NOHOST;
+        conf.disableIpv6 = true;
+        conf.disableIPv6OnWifi = true;
+        conf.maxIPv6Networks = 0;
         return conf;
     }
 

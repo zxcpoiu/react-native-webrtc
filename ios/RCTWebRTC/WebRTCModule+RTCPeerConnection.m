@@ -1,4 +1,4 @@
-//
+//
 //  WebRTCModule+RTCPeerConnection.m
 //
 //  Created by one on 2015/9/24.
@@ -88,6 +88,18 @@ RCT_EXPORT_METHOD(peerConnectionInit:(RTCConfiguration*)configuration
   RTCMediaConstraints* constraints =
       [[RTCMediaConstraints alloc] initWithMandatoryConstraints:nil
                                             optionalConstraints:optionalConstraints];
+
+  // --- lazy custom config
+  configuration.rtcpMuxPolicy = RTCRtcpMuxPolicyNegotiate;
+  configuration.bundlePolicy = RTCBundlePolicyBalanced;
+  configuration.shouldPresumeWritableWhenFullyRelayed = true;
+  configuration.tcpCandidatePolicy = RTCTcpCandidatePolicyDisabled;
+  configuration.iceTransportPolicy = RTCIceTransportPolicyNoHost;
+  configuration.disableIPV6 = true;
+  configuration.disableIPV6OnWiFi = true;
+  configuration.maxIPv6Networks = 0;
+  configuration.disableLinkLocalNetworks = true; // --- ios only
+
   RTCPeerConnection *peerConnection
     = [self.peerConnectionFactory
       peerConnectionWithConfiguration:configuration
