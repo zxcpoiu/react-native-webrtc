@@ -59,6 +59,7 @@ RCT_EXPORT_METHOD(peerConnectionInit:(RTCConfiguration*)configuration
                             objectID:(nonnull NSNumber *)objectID)
 {
   configuration.rtcpMuxPolicy = RTCRtcpMuxPolicyNegotiate;
+  configuration.bundlePolicy = RTCBundlePolicyBalanced;
   RTCPeerConnection *peerConnection
     = [self.peerConnectionFactory
       peerConnectionWithConfiguration:configuration
