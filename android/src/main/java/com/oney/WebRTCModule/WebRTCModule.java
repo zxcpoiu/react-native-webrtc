@@ -827,6 +827,27 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void peerConnectionGetLocalDescription(int id, final Callback callback) {
+        PeerConnection peerConnection = getPeerConnection(id);
+
+        if (peerConnection != null) {
+            SessionDescription sdp = peerConnection.getLocalDescription();
+            WritableMap params = Arguments.createMap();
+            if (sdp != null) {
+                params.putString("sdp", sdp.description);
+                params.putString("type", sdp.type.canonicalForm());
+            } else {
+                params.putString("sdp", "");
+                params.putString("type", "");
+            }
+            callback.invoke(true, params);
+        } else {
+            Log.d(TAG, "peerConnectionGetLocalDescription() peerConnection is null");
+            callback.invoke(false, "peerConnection is null");
+        }
+    }
+
+    @ReactMethod
     public void peerConnectionSetRemoteDescription(ReadableMap sdpMap,
                                                    int id,
                                                    Callback callback) {
