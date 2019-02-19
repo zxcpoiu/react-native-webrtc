@@ -93,7 +93,7 @@ RCT_EXPORT_METHOD(peerConnectionInit:(RTCConfiguration*)configuration
   RTCPeerConnection *peerConnection
     = [self.peerConnectionFactory
       peerConnectionWithConfiguration:configuration
-			  constraints:constraints
+        constraints:constraints
                              delegate:self];
 
   peerConnection.dataChannels = [NSMutableDictionary new];
@@ -215,6 +215,25 @@ RCT_EXPORT_METHOD(peerConnectionSetLocalDescription:(RTCSessionDescription *)sdp
       callback(@[@(YES)]);
     }
   }];
+}
+
+RCT_EXPORT_METHOD(peerConnectionGetLocalDescription:(nonnull NSNumber *)objectID
+                                   callback:(RCTResponseSenderBlock)callback)
+{
+  RTCPeerConnection *peerConnection = self.peerConnections[objectID];
+  if (!peerConnection) {
+    callback(@[@(NO), @"peerConnection is null"]);
+    return;
+  }
+
+  RTCSessionDescription *sdp = [peerConnection localDescription];
+
+  if (sdp) {
+    NSString *type = [RTCSessionDescription stringForType:sdp.type];
+    callback(@[@(YES), @{@"sdp": sdp.sdp, @"type": type}]);
+  } else {
+    callback(@[@(NO), @{@"sdp": @"", @"type": @""}]);
+  }
 }
 
 RCT_EXPORT_METHOD(peerConnectionSetRemoteDescription:(RTCSessionDescription *)sdp objectID:(nonnull NSNumber *)objectID callback:(RCTResponseSenderBlock)callback)
