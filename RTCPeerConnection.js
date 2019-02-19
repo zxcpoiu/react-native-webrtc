@@ -170,6 +170,20 @@ export default class RTCPeerConnection extends EventTarget(PEER_CONNECTION_EVENT
     });
   }
 
+  getLocalDescription() {
+    return new Promise((resolve, reject) => {
+      WebRTCModule.peerConnectionGetLocalDescription(
+        this._peerConnectionId,
+        (successful, data) => {
+          if (successful) {
+            resolve(new RTCSessionDescription(data));
+          } else {
+            reject('failed');
+          }
+      });
+    });
+  }
+
   setRemoteDescription(sessionDescription: RTCSessionDescription) {
     return new Promise((resolve, reject) => {
       WebRTCModule.peerConnectionSetRemoteDescription(
