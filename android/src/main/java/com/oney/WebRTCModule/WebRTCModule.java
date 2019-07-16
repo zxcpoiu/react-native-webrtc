@@ -87,6 +87,10 @@ public class WebRTCModule extends ReactContextBaseJavaModule {
         VideoEncoderFactory encoderFactory = null;
         VideoDecoderFactory decoderFactory = null;
 
+        // --- force use software encoder
+        encoderFactory = new SoftwareVideoEncoderFactory();
+        decoderFactory = new SoftwareVideoDecoderFactory();
+
         if (options != null) {
             adm = options.audioDeviceModule;
             encoderFactory = options.videoEncoderFactory;
