@@ -32,6 +32,8 @@ import org.webrtc.StatsObserver;
 import org.webrtc.StatsReport;
 import org.webrtc.VideoTrack;
 
+//import org.webrtc.CandidatePairChangeEvent; // --- M84
+
 class PeerConnectionObserver implements PeerConnection.Observer {
     private final static String TAG = WebRTCModule.TAG;
 
@@ -280,6 +282,56 @@ class PeerConnectionObserver implements PeerConnection.Observer {
         s.setLength(0);
 
         return r;
+    }
+
+    /*
+    // === will need be implemented when upgrading M84 ===
+    // --- Triggered when the standard-compliant state transition of IceConnectionState happens.
+    @Override
+    public void onStandardizedIceConnectionChange(PeerConnection.IceConnectionState iceConnectionState) {
+        Log.d(TAG, String.format("onStandardizedIceConnectionChange() %s", iceConnectionStateString(iceConnectionState)));
+    }
+
+    // --- Triggered when the ICE candidate pair is changed
+    @Override
+    public void onSelectedCandidatePairChanged(CandidatePairChangeEvent event) {
+        if (event == null) {
+            return;
+        }
+        Log.d(TAG, String.format("onSelectedCandidatePairChanged() local: %s, remote: %s, reason: %s", event.local.sdp, event.remote.sdp, event.reason));
+    }
+
+    // --- Triggered when the signaling from SetRemoteDescription indicates that a transceiver
+    // --- will be receiving media from a remote endpoint. This is only called if UNIFIED_PLAN
+    // --- semantics are specified. The transceiver will be disposed automatically.
+    @Override
+    public void onTrack(RtpTransceiver transceiver) {
+        Log.d(TAG, "onTrack");
+    };
+    */
+
+    @Override
+    public void onConnectionChange(PeerConnection.PeerConnectionState peerConnectionState) {
+        Log.d(TAG, String.format("onConnectionChange() %s", peerConnectionStateString(peerConnectionState)));
+    }
+
+    @Nullable
+    private String peerConnectionStateString(PeerConnection.PeerConnectionState peerConnectionState) {
+        switch (peerConnectionState) {
+            case NEW:
+                return "new";
+            case CONNECTING:
+                return "connecting";
+            case CONNECTED:
+                return "connected";
+            case DISCONNECTED:
+                return "disconnected";
+            case FAILED:
+                return "failed";
+            case CLOSED:
+                return "closed";
+        }
+        return null;
     }
 
     @Override
